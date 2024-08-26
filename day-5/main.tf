@@ -9,18 +9,20 @@ resource "aws_instance" "Tour" {
     Name = "Tour"
   }
 
-#below examples are for lifecycle meta_arguments 
-
-    #lifecycle {
-     #create_before_destroy = true    #this attribute will create the new object first and then destroy the old one
-  # }
-
-# lifecycle {
-#   prevent_destroy = true   #Terraform will error when it attempts to destroy a resource when this is set to true:
-# }
-
-
-#   lifecycle {
-#     ignore_changes = [tags,] #This means that Terraform will never update the object but will be able to create or destroy it.
-#   }
+}
+resource "aws_s3_bucket" "dev" {
+    bucket = "suraj-devops-awss"
+  
+}
+#-------Locking provision for statefile -------------------#
+resource "aws_dynamodb_table" "dynamodb-terraform-state-lock" {
+  name = "terraform-state-lock-dynamo"
+  hash_key = "LockID"
+  read_capacity = 20
+  write_capacity = 20
+ 
+  attribute {
+    name = "LockID"
+    type = "S"
+  }
 }
