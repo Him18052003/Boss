@@ -1,21 +1,23 @@
 provider "aws" {
+    region = "ap-south-1"
     profile = "default"
-    alias = "default"
+    alias = "mumbai"
 
   
 }
 provider "aws" {
-    profile = "account2"
-  alias = "account2"
+    region = "us-west-2"
+  alias = "oregon"
+    profile = "Rahul"
 }
 
 resource "aws_s3_bucket" "AWS" {
     bucket = "abcdhaaaa"
-    provider = aws.account2
+    provider = aws.oregon
   
 }
 resource "aws_s3_bucket" "DEV" {
     bucket = "terarrra"
-    provider = aws.default
+    provider = aws.mumbai
   
 }
